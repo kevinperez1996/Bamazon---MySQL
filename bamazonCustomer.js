@@ -84,7 +84,7 @@ function orderStatus(ID, QU) {
       console.log("Processing your order & Updating inventory..." +
         "\n" + QU + " " + data[0].product_name +
         " - " + "Order Complete!" +
-        "\nThe total for your is $" + cost + "\n--------------------------------------------------------");
+        "\nThe total for your is $" + cost + "\n" + "\n--------------------------------------------------------" + "\n");
       updateProduct(ID, newInv);
     }
     else if (QU > data[0].stock_quantity) {
