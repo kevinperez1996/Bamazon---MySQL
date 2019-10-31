@@ -22,7 +22,8 @@ connection.connect(function (err) {
 });
 
 function readProducts() {
-  console.log("Selecting all products...\n");
+  console.log("\n" + "Selecting all products...\n");
+  console.log("--------------------------------------------------------" + "\n");
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
     // Log all results of the SELECT statement
@@ -33,9 +34,9 @@ function readProducts() {
         " || Department: " + res[i].department_name +
         " || Product: " + res[i].product_name +
         " || Availability: " + res[i].stock_quantity +
-        " || Price: " + "$" + res[i].price);
+        " || Price: " + "$" + res[i].price + "\n");
     }
-    console.log("----------------------------")
+    console.log("--------------------------------------------------------" + "\n")
     ItemID();
   });
 };
@@ -47,8 +48,8 @@ function ItemID() {
         name: "ID",
         type: "input",
         message: "What is the ID# of the item would you like to buy?",
-        validate: function number (input){
-          if (input >=1  && input <= 15){
+        validate: function number(input) {
+          if (input >= 1 && input <= 15) {
             return true;
           }
           return false;
@@ -58,8 +59,8 @@ function ItemID() {
         name: "quantity",
         type: "input",
         message: "How many of these would you like to buy?",
-        validate: function number (input){
-          if (input >=1  && input <= 15){
+        validate: function number(input) {
+          if (input >= 1 && input <= 15) {
             return true;
           }
           return false;
@@ -72,39 +73,82 @@ function ItemID() {
     });
 };
 
-function orderStatus (ID, QU){
-  connection.query("SELECT * FROM  products WHERE ID = " + ID, function (err, data){
+function orderStatus(ID, QU) {
+  connection.query("SELECT * FROM  products WHERE ID = " + ID, function (err, data) {
     if (err) throw err;
-    if (QU<=data[0].stock_quantity){
+    if (QU <= data[0].stock_quantity) {
 
       var cost = data[0].price * QU;
       var newInv = data[0].stock_quantity - QU;
 
-      console.log("Processing your order & Updating inventory..." + "\n" + QU + " " + data[0].product_name + " - "+ "Order Complete!" + "\nThe total for your is $" + cost);
+      console.log("Processing your order & Updating inventory..." +
+        "\n" + QU + " " + data[0].product_name +
+        " - " + "Order Complete!" +
+        "\nThe total for your is $" + cost + "\n--------------------------------------------------------");
       updateProduct(ID, newInv);
     }
-    else if (QU > data[0].stock_quantity){
-      console.log("Unfortunately, we currently only have " + data[0].stock_quantity + " " + data[0].product_name + "'s in stock!")
+    else if (QU > data[0].stock_quantity) {
+      console.log("--------------------------------------------------------" + "\n")
+      console.log("**Unfortunately, we currently only have " + data[0].stock_quantity + " " + data[0].product_name + "'s in stock!**")
+      console.log("\n" + "--------------------------------------------------------" + "\n")
+      inquirer
+        .prompt([
+          {
+            name: "next1",
+            type: "list",
+            message: "How would you like to continue?",
+            choices: ["Continue Shopping", "Exit"]
+          }
+        ]).then(function (answer) {
+          if (answer.next1 === "Continue Shopping") {
+            readProducts();
+          }
+          else {
+            console.log ("------------------------" + "\n");
+            console.log("Come again soon!");
+            console.log("\n" + "------------------------");
+            connection.end();
+          }
+        });
     }
-   
-      connection.end();
   })
 }
 
 function updateProduct(ID, newInv) {
-  
 
-  connection.query( "UPDATE products SET ? WHERE ?",
+
+  connection.query("UPDATE products SET ? WHERE ?",
     [
       {
-        stock_quantity: newInv 
+        stock_quantity: newInv
       },
       {
         ID: ID
       }
     ],
-    function(err, res) {
+    function (err, res) {
       if (err) throw err;
+      next();
     }
   );
+}
+
+function next() {
+  inquirer
+    .prompt([
+      {
+        name: "next2",
+        type: "list",
+        message: "What would you like to do next?",
+        choices: ["Shop Again", "Exit"]
+      }
+    ]).then(function (answer) {
+      if (answer.next2 === "Shop Again") {
+        readProducts();
+      }
+      else {
+        console.log("Come again soon!")
+        connection.end();
+      }
+    });
 }
