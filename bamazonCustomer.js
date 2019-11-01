@@ -80,7 +80,8 @@ function orderStatus(ID, QU) {
 
       var cost = data[0].price * QU;
       var newInv = data[0].stock_quantity - QU;
-
+      
+      console.log("--------------------------------------------------------" + "\n")
       console.log("Processing your order & Updating inventory..." +
         "\n" + QU + " " + data[0].product_name +
         " - " + "Order Complete!" +
