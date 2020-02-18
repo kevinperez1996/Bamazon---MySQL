@@ -12,7 +12,7 @@
 
 1. Run the command "npm install" in your terminal to install all dependencies. 
 
-# Liri in Action 
+# Bamazon in Action 
 
  ## _In the Terminal_
 
