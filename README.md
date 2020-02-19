@@ -1,10 +1,17 @@
 # Bamazon-MySQL
 
-### Bamazon is a CLI aplication that displays the inventory of a virtual online store. The Online store is a set of data stored in a MySql database. When the Bamazon Application is run, it will display all of the items in the store alog with an ID number and inventory number. The user is then prompted with various questions using the inquirer NPM package, to proceed to the next step. Once the user chooses an item to purchase, the app will process the order, update the inventory and display a total. Note that if the quantity that the user wishes to purchase is greater than the available quantity, the app will let you know that the store does not have sufficient quantity to complete your oder, and will ask you how you wish to continue. This application uses various technologies including: 
+### Bamazon is a CLI aplication that displays the inventory of a virtual online store. The Online store is a set of data stored in a MySql database. When the Bamazon Application is run, it will display all of the items in the store alog with an ID number and inventory number. The user is then prompted with various questions using the inquirer NPM package, to proceed to the next step. Once the user chooses an item to purchase, the app will process the order, update the inventory and display a total. Note that if the quantity that the user wishes to purchase is greater than the available quantity, the app will let you know that the store does not have sufficient quantity to complete your oder, and will ask you how you wish to continue. 
 
-* Node
-* inquirer NPM 
-* MySql. 
+## Technologies Used
+
+ 
+ * Javascript
+ * HTML5
+ * Bootstrap CSS
+ * Google Fonts
+ * Node
+ * Inquirer NPM 
+ * MySql
     
 # Installing Bamazon 
 
